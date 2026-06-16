@@ -1,0 +1,42 @@
+name: Devin Auto-Review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  trigger-devin:
+    # Only trigger for PRs created by Jules (google-labs-jules bot)
+    if: github.actor == 'google-labs-jules[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Devin review session
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          REPO="${{ github.repository }}"
+          PR_URL="https://github.com/${REPO}/pull/${PR_NUMBER}"
+
+          echo "Triggering Devin review for PR #${PR_NUMBER}: ${PR_TITLE}"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://api.devin.ai/v1/sessions" \
+            -H "Authorization: Bearer ${DEVIN_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"prompt\": \"Review PR #${PR_NUMBER} in ${REPO}: ${PR_TITLE}. URL: ${PR_URL}. Check code quality, run lint, leave review comments on the PR.\"
+            }")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+
+          echo "Response (HTTP ${HTTP_CODE}): ${BODY}"
+
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::error::Failed to trigger Devin session (HTTP ${HTTP_CODE})"
+            exit 1
+          fi
+
+          echo "Devin review session started successfully."

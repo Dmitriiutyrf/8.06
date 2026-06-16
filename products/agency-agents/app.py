@@ -1,12 +1,18 @@
 import streamlit as st
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 st.set_page_config(page_title="Agency Agents Explorer", layout="wide")
 
 st.title("🤖 Agency Agents Explorer")
 st.markdown("### Digital Factory: Upgrade Pack for AI Engineers")
 
-categories = sorted([d for d in os.listdir('.') if os.path.isdir(d) and not d.startswith('.') and d not in ['__pycache__']])
+EXCLUDE = {'__pycache__', 'scripts', 'integrations', 'examples', 'strategy'}
+categories = sorted([d for d in os.listdir(BASE_DIR)
+                     if os.path.isdir(os.path.join(BASE_DIR, d))
+                     and not d.startswith('.')
+                     and d not in EXCLUDE])
 
 col1, col2 = st.columns([1, 3])
 
@@ -17,8 +23,8 @@ with col1:
 if selected_cat:
     with col2:
         st.header(f"Agents in {selected_cat}")
-        cat_path = selected_cat
-        agents = [f for f in os.listdir(cat_path) if f.endswith('.md')]
+        cat_path = os.path.join(BASE_DIR, selected_cat)
+        agents = sorted([f for f in os.listdir(cat_path) if f.endswith('.md')])
 
         if not agents:
             st.write("No agents found in this category.")
