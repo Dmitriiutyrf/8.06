@@ -1,0 +1,26 @@
+name: Auto-Issue for Jules
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Every Monday at 00:00
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Weekly Task Issue
+        uses: imjohnbo/issue-action@v3
+        with:
+          assignees: jules # Assuming Jules can be assigned
+          title: "[Weekly] Hunter & Pack: Discovery Task"
+          body: |
+            Привет, Jules! Пора найти новые AI-тренды и упаковать их.
+
+            Твои задачи на сегодня:
+            1. Запусти Hunter Engine и просканируй GitHub Trending/Product Hunt.
+            2. Выбери 3+ проекта с высоким потенциалом монетизации (B2B/Mini-Franchise).
+            3. Упакуй лучший проект по "Стандарту Дмитрия" (start.bat, GUIDE.md, PRO Explorer).
+            4. Создай PR с результатами.
+
+            Удачи! 🚀
+          token: ${{ secrets.GITHUB_TOKEN }}
