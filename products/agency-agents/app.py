@@ -1,50 +1,43 @@
 import streamlit as st
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+st.set_page_config(page_title="Agency Agents PRO", page_icon="🤖", layout="wide")
+st.title("🚀 Agency Agents PRO")
+st.markdown("##### *Цифровая Фабрика: Инструмент для работы с ИИ*")
 
-st.set_page_config(page_title="Agency Agents Explorer", layout="wide")
+@st.cache_data
+def get_agents():
+    all_agents = []
+    excluded = ['__pycache__', 'scripts', '.github', 'examples', 'integrations']
+    categories = sorted([d for d in os.listdir('.') if os.path.isdir(d) and not d.startswith('.') and d not in excluded])
+    for cat in categories:
+        try:
+            for f in os.listdir(cat):
+                if f.endswith('.md'):
+                    all_agents.append({"name": f.replace('.md', '').replace('-', ' ').title(), "category": cat, "path": os.path.join(cat, f)})
+        except: continue
+    return all_agents
 
-st.title("🤖 Agency Agents Explorer")
-st.markdown("### Digital Factory: Upgrade Pack for AI Engineers")
+agents = get_agents()
+st.sidebar.title("🔍 Поиск")
+q = st.sidebar.text_input("Название или роль:")
+filtered = [a for a in agents if not q or q.lower() in a['name'].lower()]
 
-EXCLUDE = {'__pycache__', 'scripts', 'integrations', 'examples', 'strategy'}
-categories = sorted([d for d in os.listdir(BASE_DIR)
-                     if os.path.isdir(os.path.join(BASE_DIR, d))
-                     and not d.startswith('.')
-                     and d not in EXCLUDE])
-
-col1, col2 = st.columns([1, 3])
-
+col1, col2 = st.columns([1, 2])
 with col1:
-    st.header("Categories")
-    selected_cat = st.radio("Select a category:", categories)
+    if filtered:
+        sel = st.radio("Агенты:", [a['name'] for a in filtered], label_visibility="collapsed")
+        agent = next(a for a in filtered if a['name'] == sel)
+    else:
+        st.write("Ничего не найдено")
+        agent = None
 
-if selected_cat:
+if agent:
     with col2:
-        st.header(f"Agents in {selected_cat}")
-        cat_path = os.path.join(BASE_DIR, selected_cat)
-        agents = sorted([f for f in os.listdir(cat_path) if f.endswith('.md')])
-
-        if not agents:
-            st.write("No agents found in this category.")
-        else:
-            selected_agent = st.selectbox("Select an agent:", agents)
-
-            if selected_agent:
-                with open(os.path.join(cat_path, selected_agent), 'r') as f:
-                    content = f.read()
-
-                st.markdown("---")
-                st.markdown(f"### Instruction for {selected_agent}")
-                st.code(content, language='markdown')
-
-                st.download_button(
-                    label="Download Agent Instructions",
-                    data=content,
-                    file_name=selected_agent,
-                    mime="text/markdown"
-                )
-
-st.sidebar.markdown("---")
-st.sidebar.info("Select a category to explore specialized AI personas and their instructions.")
+        st.subheader(agent['name'])
+        with open(agent['path'], 'r') as f: content = f.read()
+        t1, t2 = st.tabs(["👁 Инструкция", "🚀 Внедрение"])
+        with t1: st.markdown(content)
+        with t2:
+            st.markdown("#### Экспорт")
+            if st.button("Сгенерировать .cursorrules"): st.code(f"// Cursor\n\n{content}")
