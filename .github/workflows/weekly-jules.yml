@@ -7,5 +7,5 @@ jobs:
   task:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify
-        run: echo "Starting weekly Digital Factory discovery..."
+      - name: Trigger Discovery
+        run: echo "Starting weekly Digital Factory hunter session..."

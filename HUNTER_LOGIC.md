@@ -1,4 +1,4 @@
-# Hunter Engine Brain
-1. Speed: MVP < 2h.
-2. Money: B2B/Freelance focus.
-3. Quality: Must pass "Dmitry Standard".
+# Hunter Engine Logic
+- MVP Speed: < 2 hours packaging.
+- Potential: B2B or Mini-Franchise.
+- Standard: "Dmitry Standard" compliant.
