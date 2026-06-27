@@ -1,0 +1,10 @@
+[
+  {"id": "github", "name": "GitHub", "url": "https://github.com", "region": "Global", "type": "Forge", "priority": 1},
+  {"id": "gitee", "name": "Gitee", "url": "https://gitee.com", "region": "China", "type": "Forge", "priority": 1},
+  {"id": "gitlab", "name": "GitLab", "url": "https://gitlab.com", "region": "Global", "type": "Forge", "priority": 2},
+  {"id": "codeberg", "name": "Codeberg", "url": "https://codeberg.org", "region": "Europe", "type": "Forge", "priority": 2},
+  {"id": "bitbucket", "name": "Bitbucket", "url": "https://bitbucket.org", "region": "Global", "type": "Forge", "priority": 3},
+  {"id": "sourcehut", "name": "SourceHut", "url": "https://sourcehut.org", "region": "Global", "type": "Lightweight", "priority": 3},
+  {"id": "product_hunt", "name": "Product Hunt", "url": "https://producthunt.com", "region": "Global", "type": "Catalog", "priority": 1},
+  {"id": "hacker_news", "name": "Hacker News", "url": "https://news.ycombinator.com", "region": "Global", "type": "Community", "priority": 1}
+]

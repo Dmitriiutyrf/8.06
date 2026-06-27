@@ -1,0 +1,13 @@
+# Reels Script (12 Seconds)
+
+[0-2s] Visual: Скриншот GUI со сканированием "OpenAI vs Anthropic".
+Text: Хочешь знать, что РЕАЛЬНО думают о твоем конкуренте?
+
+[2-5s] Visual: Быстрая прокрутка отчета (Reddit, X, YT).
+Text: Хватит гуглить часами. Этот сканер собирает всё за 120 секунд.
+
+[5-8s] Visual: Нажатие кнопки "Download Report".
+Text: Reddit, Twitter, YouTube — вся подноготная рынка в одном файле.
+
+[8-12s] Visual: Ссылка на покупку/скачивание.
+Text: ShadowPulse. Твой шпион в мире OSINT. Ссылка в профиле.
