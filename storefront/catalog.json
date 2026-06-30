@@ -1,0 +1,23 @@
+[
+  {
+    "id": "shadow_pulse",
+    "title": "ShadowPulse: Market Intelligence",
+    "description": "Теневая разведка рынков. OSINT-сканер Reddit, X, YouTube и Hacker News.",
+    "price_xtr": 500,
+    "deliverable": "https://example.com/download/shadow_pulse"
+  },
+  {
+    "id": "trend_sniper",
+    "title": "TrendSniper: Hype Hunter",
+    "description": "Твой снайпер в мире трендов. Ежедневный поиск прибыльных open-source проектов.",
+    "price_xtr": 400,
+    "deliverable": "https://example.com/download/trend_sniper"
+  },
+  {
+    "id": "teamsync_ai",
+    "title": "TeamSync AI: GNAP Orchestrator",
+    "description": "Управляй командой ИИ-агентов через Git. Никаких серверов.",
+    "price_xtr": 1000,
+    "deliverable": "https://example.com/download/teamsync_ai"
+  }
+]
